@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="globo.png" type="image/x-icon">
+  <title>Abre el sobre </title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Cielo estrellado */
+    #estrellas {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .estrella {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: parpadeo 2s infinite;
+    }
+
+    @keyframes parpadeo {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Sobre */
+    .sobre {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #2196f3;
+      border-radius: 6px;
+      box-shadow: 0 0 25px 6px rgba(33,150,243,0.8);
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .solapa {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-top: 100px solid #1e88e5;
+      z-index: 2;
+    }
+
+    .texto {
+      position: relative;
+      bottom: 20px;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cielo estrellado -->
+<div id="estrellas"></div>
+
+<!-- Sobre con brillo -->
+<div class="sobre" onclick="iniciar()">
+  <div class="solapa"></div>
+  <div class="texto">📩 Toca para abrir</div>
+</div>
+
+<!-- Audio oculto -->
+<audio id="musica" autoplay>
+  <source src="https://docs.google.com/uc?export=download&id=1oRa87TgQJmo__Z1YX3rfFSnQm8cRTPAn" type="audio/mpeg">
+  Tu navegador no soporta el audio.
+</audio>
+
+<script>
+  function iniciar() {
+    const musica = document.getElementById("musica");
+
+    musica.play().catch(() => {
+      console.warn("No se pudo reproducir automáticamente el audio.");
+    });
+
+    setTimeout(() => {
+      window.location.href = "Feliz_dia_de_las_madres.html"; // Cambia al destino real
+    }, 1000);
+  }
+
+  // Generar estrellas aleatorias
+  const estrellasContainer = document.getElementById("estrellas");
+  for (let i = 0; i < 100; i++) {
+    const estrella = document.createElement("div");
+    estrella.classList.add("estrella");
+    estrella.style.top = Math.random() * 100 + "%";
+    estrella.style.left = Math.random() * 100 + "%";
+    estrella.style.animationDuration = (Math.random() * 3 + 1) + "s";
+    estrellasContainer.appendChild(estrella);
+  }
+</script>
+
+</body>
+</html>
